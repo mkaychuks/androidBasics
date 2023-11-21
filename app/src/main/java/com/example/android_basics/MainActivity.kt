@@ -15,6 +15,7 @@ import com.example.android_basics.ui.theme.Android_basicsTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("OnCreate() triggered")
         setContent {
             Android_basicsTheme {
                 // A surface container using the 'background' color from the theme
@@ -23,6 +24,31 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        println("OnStart() triggered")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("OnResume() triggered")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("OnPause() triggered")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        println("OnRestart triggered")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println("OnDestroy triggered")
     }
 }
 
