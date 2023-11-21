@@ -3,6 +3,7 @@ package com.example.android_basics
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
@@ -14,10 +15,9 @@ import com.example.android_basics.ui.theme.Android_basicsTheme
 
 class MainActivity : ComponentActivity() {
 
-    private  val viewModel = MainViewModel()
+    private  val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        println("OnCreate() triggered")
         setContent {
             Android_basicsTheme {
                 // A surface container using the 'background' color from the theme
