@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,42 +13,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.android_basics.ui.theme.Android_basicsTheme
 
 class MainActivity : ComponentActivity() {
+
+    private  val viewModel = MainViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         println("OnCreate() triggered")
         setContent {
             Android_basicsTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
+                Surface(modifier = Modifier.fillMaxSize(), color = viewModel.backgroundColor) {
+                   Button(onClick = {
+                       viewModel.changeBackgroundColor()
+                   }) {
+                       Text(text = "Change Background")
+                   }
                 }
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        println("OnStart() triggered")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        println("OnResume() triggered")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        println("OnPause() triggered")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        println("OnRestart triggered")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        println("OnDestroy triggered")
     }
 }
 
