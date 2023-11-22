@@ -1,5 +1,6 @@
 package com.example.android_basics
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -26,9 +27,18 @@ class MainActivity : ComponentActivity() {
                    horizontalAlignment = Alignment.CenterHorizontally
                ){
                    Button(onClick = {
-                       Intent(applicationContext, SecondActivity::class.java).also {
-                           startActivity(it)
+//                       Intent(applicationContext, SecondActivity::class.java).also {
+//                           startActivity(it)
+//                       }
+                       Intent(Intent.ACTION_MAIN).also {
+                           it.`package` = "com.google.android.youtube"
+                           try {
+                               startActivity(it)
+                           } catch (e: ActivityNotFoundException) {
+                               e.printStackTrace()
+                           }
                        }
+
                    }) {
                        Text(text = "Click Me")
                    }
