@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity"/>
     </application>
 
     <queries>
@@ -31,5 +30,4 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
-
 </manifest>
