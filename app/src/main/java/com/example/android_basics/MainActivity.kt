@@ -1,6 +1,5 @@
 package com.example.android_basics
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -30,15 +29,23 @@ class MainActivity : ComponentActivity() {
 //                       Intent(applicationContext, SecondActivity::class.java).also {
 //                           startActivity(it)
 //                       }
-                       Intent(Intent.ACTION_MAIN).also {
-                           it.`package` = "com.google.android.youtube"
-                           try {
-                               startActivity(it)
-                           } catch (e: ActivityNotFoundException) {
-                               e.printStackTrace()
-                           }
+//                       Intent(Intent.ACTION_MAIN).also {
+//                           it.`package` = "com.google.android.youtube"
+//                           try {
+//                               startActivity(it)
+//                           } catch (e: ActivityNotFoundException) {
+//                               e.printStackTrace()
+//                           }
+//                       }
+                       val intent = Intent(Intent.ACTION_SEND).apply {
+                           type = "text/plain"
+                           putExtra(Intent.EXTRA_EMAIL, arrayOf("viktorachufusi@gmail.com", "jachufusi@gmail.com", "achufusik@gmail.com"))
+                           putExtra(Intent.EXTRA_SUBJECT, "THIS IS A TEST EMAIL CLIENT")
+                           putExtra(Intent.EXTRA_TEXT, "This mail is coming from Ifeanyi and it is a test email, so do not panic of spam of what have you :grin:")
                        }
-
+                        if(intent.resolveActivity(packageManager) != null){
+                            startActivity(intent)
+                        }
                    }) {
                        Text(text = "Click Me")
                    }
