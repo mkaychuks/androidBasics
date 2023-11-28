@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
                    modifier = Modifier.fillMaxSize(),
                    color = MaterialTheme.colorScheme.background
                ) {
-                   GreetingImage(message = getString(R.string.happy_birthday_text), from = "from Emma")
+                    ComposeArticle()
                }
             }
         }
@@ -41,55 +42,47 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingText(modifier: Modifier = Modifier, message: String, from: String){
+fun ComposeArticle(modifier: Modifier = Modifier) {
+    val image = painterResource(id = R.drawable.bg_compose_background)
     Column(
-        modifier = modifier
-            .padding(8.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top
     ) {
-        Text(
-            text = message,
-            fontSize = 100.sp,
-            lineHeight = 100.sp,
-            textAlign = TextAlign.Center
-        )
-        Text(
-            text = from,
-            fontSize = 30.sp,
-            modifier = Modifier
-                .padding(16.dp)
-                .align(alignment = Alignment.CenterHorizontally
-                ),
-
-        )
-    }
-}
-
-@Composable
-fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier) {
-    val image = painterResource(id = R.drawable.androidparty)
-    Box {
         Image(
             painter = image,
-            contentDescription = "background photo",
-            contentScale = ContentScale.Crop,
-            alpha = 0.5F
+            contentDescription = "compose image",
+            modifier = Modifier.fillMaxWidth()
         )
-        GreetingText(
-            message = message,
-            from = from,
-            modifier = modifier
-                .fillMaxSize()
-                .padding(8.dp)
+        Text(
+            text = "Jetpack Compose tutorial",
+            fontSize = 24.sp,
+            modifier = Modifier.padding(16.dp)
         )
+        Text(
+            text = "Jetpack Compose is a modern toolkit for building native Android UI. ]" +
+                    "Compose simplifies and accelerates UI development on Android with less code, " +
+                    "powerful tools, and intuitive Kotlin APIs.",
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+            textAlign = TextAlign.Justify
+        )
+        Text(
+            text = "In this tutorial, you build a simple UI component with declarative functions. " +
+                "You call Compose functions to say what elements you want and the Compose compiler " +
+                "does the rest. Compose is built around Composable functions. These functions let you" +
+                " define your app\\'s UI programmatically because they let you describe how it should " +
+                "look and provide data dependencies, rather than focus on the process of the UI\\'s " +
+                "construction, such as initializing an element and then attaching it to a parent. To" +
+                " create a Composable function, you add the @Composable annotation to the function name.",
+            modifier = Modifier.padding(16.dp),
+            textAlign = TextAlign.Justify
+            )
     }
-
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     Android_basicsTheme {
-        GreetingImage(message = "Happy Birthday Sam", from = "from Emma")
+        ComposeArticle()
     }
 }
