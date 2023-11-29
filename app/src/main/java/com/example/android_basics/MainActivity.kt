@@ -1,52 +1,40 @@
 package com.example.android_basics
 
-import android.Manifest
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.app.ActivityCompat
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.android_basics.ui.theme.Android_basicsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS),0)
-        }
         setContent {
             Android_basicsTheme {
-               Column (
+               Surface(
                    modifier = Modifier.fillMaxSize(),
-                   verticalArrangement = Arrangement.Center,
-                   horizontalAlignment = Alignment.CenterHorizontally
-               ){
-                   Button(onClick = {
-                       Intent(applicationContext, RunningService::class.java).also {
-                           it.action = RunningService.Actions.START.toString()
-                           startService(it)
-                       }
-                   }) {
-                       Text(text = "Start run")
-                   }
-                   Button(onClick = {
-                       Intent(applicationContext, RunningService::class.java).also {
-                           it.action = RunningService.Actions.STOP.toString()
-                           startService(it)
-                       }
-                   }) {
-                       Text(text = "Stop run")
-                   }
+                   color = MaterialTheme.colorScheme.background
+               ) {
+                    ComposeArticle()
                }
             }
         }
@@ -54,17 +42,47 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun ComposeArticle(modifier: Modifier = Modifier) {
+    val image = painterResource(id = R.drawable.bg_compose_background)
+    Column(
+        verticalArrangement = Arrangement.Top
+    ) {
+        Image(
+            painter = image,
+            contentDescription = "compose image",
+            modifier = Modifier.fillMaxWidth()
+        )
+        Text(
+            text = "Jetpack Compose tutorial",
+            fontSize = 24.sp,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Jetpack Compose is a modern toolkit for building native Android UI. ]" +
+                    "Compose simplifies and accelerates UI development on Android with less code, " +
+                    "powerful tools, and intuitive Kotlin APIs.",
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+            textAlign = TextAlign.Justify
+        )
+        Text(
+            text = "In this tutorial, you build a simple UI component with declarative functions. " +
+                "You call Compose functions to say what elements you want and the Compose compiler " +
+                "does the rest. Compose is built around Composable functions. These functions let you" +
+                " define your app\\'s UI programmatically because they let you describe how it should " +
+                "look and provide data dependencies, rather than focus on the process of the UI\\'s " +
+                "construction, such as initializing an element and then attaching it to a parent. To" +
+                " create a Composable function, you add the @Composable annotation to the function name.",
+            modifier = Modifier.padding(16.dp),
+            textAlign = TextAlign.Justify
+            )
+    }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     Android_basicsTheme {
-        Greeting("Android")
+        ComposeArticle()
     }
 }
