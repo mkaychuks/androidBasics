@@ -14,19 +14,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Phone
 import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,81 +50,45 @@ class MainActivity : ComponentActivity() {
                    modifier = Modifier.fillMaxSize(),
                    color = MaterialTheme.colorScheme.background
                ) {
-                   BusinessCard()
+                   DiceRollerApp()
                }
             }
         }
     }
 }
 
-
 @Composable
-fun BioDataAndImage() {
+fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
+    var result by remember{ mutableStateOf(1)}
+    val imageResource = when (result) {
+        1 -> R.drawable.dice_1
+        2 -> R.drawable.dice_2
+        3 -> R.drawable.dice_3
+        4 -> R.drawable.dice_4
+        5 -> R.drawable.dice_5
+        else -> R.drawable.dice_6
+    }
     Column(
-        verticalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        val image = painterResource(id = R.drawable.android_logo)
-        Image(
-            painter = image,
-            contentDescription = null,
-            modifier = Modifier
-                .width(100.dp)
-                .height(100.dp)
-        )
-        Text(text = "Ifeanyichukwu Samuel", fontSize = 30.sp, fontWeight = FontWeight.Bold)
-        Text(text = "Android Engineer Extraordinaire", textAlign = TextAlign.Justify, fontSize = 18.sp)
+        Image(painter = painterResource(id = imageResource), contentDescription = "1")
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = {
+            result = (1..6).random()
+        }) {
+            Text(text = stringResource(id = R.string.roll))
+        }
     }
 }
 
-@Composable
-fun OtherDetailsWidget(
-    icon: ImageVector,
-    title: String,
-    modifier: Modifier = Modifier
-    ) {
-    Row(
-        verticalAlignment =  Alignment.CenterVertically,
-        modifier = modifier.padding(bottom = 8.dp)
-    ){
-        Icon(icon, contentDescription = null, tint = Color(0xFF17C766))
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(text = title, textAlign = TextAlign.Justify, fontSize = 18.sp)
-    }
-}
 
-@Composable
-fun ContactDetails(modifier: Modifier = Modifier) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start,
-        modifier = modifier.padding(bottom = 30.dp)
-    ) {
-        OtherDetailsWidget(icon = Icons.Rounded.Phone, title = "+234 813 946 0953")
-        OtherDetailsWidget(icon = Icons.Rounded.Share, title = "@mkaychuks")
-        OtherDetailsWidget(icon = Icons.Rounded.Email, title = "sachufusi@gmail.com")
-    }
-}
-
-@Composable
-fun BusinessCard() {
-    Column(
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xEDBDCAC9))
-    ) {
-        Spacer(modifier = Modifier.height(100.dp))
-        BioDataAndImage()
-        ContactDetails()
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
-fun TaskManagerPreview() {
+fun DiceRollerApp() {
     Android_basicsTheme {
-        BusinessCard()
+        DiceWithButtonAndImage()
     }
 }
